@@ -1,0 +1,1149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ayush Kasar | Chartered Accountant</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Mono:wght@300;400;500&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0a0a0a;
+    --paper: #f4f0e8;
+    --gold: #c9a84c;
+    --gold-light: #e8d5a3;
+    --charcoal: #1e1e1e;
+    --muted: #6b6b6b;
+    --accent: #8b1a1a;
+    --line: rgba(10,10,10,0.12);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'DM Mono', monospace;
+    font-weight: 300;
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* Custom cursor */
+  .cursor {
+    position: fixed;
+    width: 12px; height: 12px;
+    background: var(--gold);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: transform 0.1s ease;
+    mix-blend-mode: multiply;
+  }
+  .cursor-ring {
+    position: fixed;
+    width: 36px; height: 36px;
+    border: 1px solid var(--ink);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9998;
+    transform: translate(-50%, -50%);
+    transition: transform 0.15s ease, width 0.3s, height 0.3s;
+    mix-blend-mode: multiply;
+  }
+
+  /* Noise texture overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1000;
+    opacity: 0.5;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 4rem;
+    z-index: 100;
+    mix-blend-mode: multiply;
+  }
+
+  .nav-logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 1rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--ink);
+    text-decoration: none;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.3s;
+    position: relative;
+  }
+
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -2px; left: 0;
+    width: 0; height: 1px;
+    background: var(--gold);
+    transition: width 0.3s;
+  }
+
+  .nav-links a:hover { color: var(--ink); }
+  .nav-links a:hover::after { width: 100%; }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-left {
+    padding: 12rem 4rem 4rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    z-index: 2;
+  }
+
+  .hero-tag {
+    font-size: 0.65rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .hero-tag::before {
+    content: '';
+    width: 40px; height: 1px;
+    background: var(--gold);
+  }
+
+  .hero-name {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3.5rem, 6vw, 7rem);
+    font-weight: 900;
+    line-height: 0.95;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    margin-bottom: 0.5rem;
+  }
+
+  .hero-name span {
+    color: var(--accent);
+    font-style: italic;
+  }
+
+  .hero-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 2.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--line);
+  }
+
+  .hero-bio {
+    font-size: 0.8rem;
+    line-height: 1.9;
+    color: var(--muted);
+    max-width: 380px;
+    margin-bottom: 3rem;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+  }
+
+  .btn-primary {
+    display: inline-block;
+    padding: 0.9rem 2.2rem;
+    background: var(--ink);
+    color: var(--paper);
+    font-family: 'Syne', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: background 0.3s, color 0.3s, transform 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .btn-primary::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--gold);
+    transform: translateX(-100%);
+    transition: transform 0.4s cubic-bezier(0.77,0,0.175,1);
+  }
+
+  .btn-primary:hover::before { transform: translateX(0); }
+  .btn-primary span { position: relative; z-index: 1; }
+  .btn-primary:hover span { color: var(--ink); }
+
+  .btn-ghost {
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    color: var(--muted);
+    text-decoration: none;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: color 0.3s;
+  }
+
+  .btn-ghost:hover { color: var(--ink); }
+
+  .hero-right {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-right-inner {
+    height: 100%;
+    background: var(--charcoal);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Gold geometric shapes */
+  .geo-circle {
+    position: absolute;
+    border-radius: 50%;
+    border: 1px solid rgba(201,168,76,0.3);
+  }
+  .geo-1 { width: 300px; height: 300px; top: 50%; left: 50%; transform: translate(-50%,-50%); animation: rotateSlow 20s linear infinite; }
+  .geo-2 { width: 450px; height: 450px; top: 50%; left: 50%; transform: translate(-50%,-50%); border-color: rgba(201,168,76,0.15); animation: rotateSlow 30s linear infinite reverse; }
+  .geo-3 { width: 180px; height: 180px; top: 50%; left: 50%; transform: translate(-50%,-50%); border-color: rgba(201,168,76,0.5); }
+
+  @keyframes rotateSlow {
+    to { transform: translate(-50%,-50%) rotate(360deg); }
+  }
+
+  .initials-display {
+    font-family: 'Playfair Display', serif;
+    font-size: 9rem;
+    font-weight: 900;
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(201,168,76,0.4);
+    letter-spacing: -0.05em;
+    position: relative;
+    z-index: 2;
+    user-select: none;
+    animation: fadeUp 1s ease 0.3s both;
+  }
+
+  .hero-stats {
+    position: absolute;
+    bottom: 3rem;
+    right: 3rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    z-index: 3;
+  }
+
+  .stat-item {
+    text-align: right;
+    color: var(--paper);
+    opacity: 0.7;
+  }
+
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--gold);
+    display: block;
+    line-height: 1;
+  }
+
+  .stat-label {
+    font-size: 0.55rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    margin-top: 0.3rem;
+    display: block;
+  }
+
+  /* Scroll indicator */
+  .scroll-indicator {
+    position: absolute;
+    bottom: 2rem;
+    left: 4rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    z-index: 5;
+    animation: fadeUp 1s ease 1s both;
+  }
+
+  .scroll-indicator span {
+    font-size: 0.55rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--muted);
+    writing-mode: vertical-rl;
+  }
+
+  .scroll-line {
+    width: 1px;
+    height: 60px;
+    background: linear-gradient(to bottom, var(--gold), transparent);
+    animation: scrollPulse 2s ease-in-out infinite;
+  }
+
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 1; transform: scaleY(1); }
+    50% { opacity: 0.4; transform: scaleY(0.7); }
+  }
+
+  /* Sections */
+  section {
+    padding: 8rem 4rem;
+    position: relative;
+  }
+
+  .section-tag {
+    font-size: 0.65rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .section-tag::before {
+    content: '';
+    width: 30px; height: 1px;
+    background: var(--gold);
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.5rem, 4vw, 4rem);
+    font-weight: 900;
+    line-height: 1.05;
+    margin-bottom: 4rem;
+    max-width: 500px;
+  }
+
+  /* EXPERTISE */
+  .expertise {
+    background: var(--charcoal);
+    color: var(--paper);
+  }
+
+  .expertise .section-title { color: var(--paper); }
+  .expertise .section-tag { color: var(--gold); }
+
+  .expertise-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    border: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .expertise-card {
+    padding: 3rem 2.5rem;
+    border-right: 1px solid rgba(255,255,255,0.06);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    position: relative;
+    overflow: hidden;
+    transition: background 0.4s;
+  }
+
+  .expertise-card:last-child, .expertise-card:nth-child(3) { border-right: none; }
+
+  .expertise-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--gold);
+    opacity: 0;
+    transition: opacity 0.4s;
+  }
+
+  .expertise-card:hover::before { opacity: 0.05; }
+
+  .expertise-card:hover .card-num { color: var(--gold); }
+
+  .card-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 3.5rem;
+    font-weight: 900;
+    color: rgba(255,255,255,0.06);
+    line-height: 1;
+    margin-bottom: 1.5rem;
+    transition: color 0.4s;
+    position: relative;
+    z-index: 1;
+  }
+
+  .card-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--paper);
+    margin-bottom: 1rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .card-desc {
+    font-size: 0.72rem;
+    line-height: 1.9;
+    color: rgba(244,240,232,0.5);
+    position: relative;
+    z-index: 1;
+  }
+
+  .card-items {
+    margin-top: 1.5rem;
+    list-style: none;
+    position: relative;
+    z-index: 1;
+  }
+
+  .card-items li {
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    color: rgba(244,240,232,0.4);
+    padding: 0.4rem 0;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+  }
+
+  .card-items li::before {
+    content: '→';
+    color: var(--gold);
+    font-size: 0.7rem;
+  }
+
+  /* TIMELINE */
+  .timeline-section {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+  }
+
+  .timeline {
+    position: relative;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 1px;
+    background: linear-gradient(to bottom, var(--gold), transparent);
+  }
+
+  .timeline-item {
+    padding-left: 2.5rem;
+    margin-bottom: 3rem;
+    position: relative;
+  }
+
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -4px; top: 0.5rem;
+    width: 9px; height: 9px;
+    background: var(--gold);
+    border-radius: 50%;
+  }
+
+  .timeline-year {
+    font-size: 0.6rem;
+    letter-spacing: 0.3em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 0.4rem;
+  }
+
+  .timeline-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin-bottom: 0.2rem;
+  }
+
+  .timeline-sub {
+    font-size: 0.65rem;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    margin-bottom: 0.5rem;
+  }
+
+  .timeline-badge {
+    display: inline-block;
+    padding: 0.2rem 0.7rem;
+    background: rgba(201,168,76,0.15);
+    border: 1px solid rgba(201,168,76,0.3);
+    color: var(--gold);
+    font-size: 0.55rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+
+  /* SKILLS */
+  .skills-section {
+    background: var(--ink);
+    color: var(--paper);
+  }
+
+  .skills-section .section-title { color: var(--paper); }
+
+  .skills-wrap {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 6rem;
+    align-items: start;
+  }
+
+  .skills-intro {
+    font-size: 0.78rem;
+    line-height: 2;
+    color: rgba(244,240,232,0.5);
+  }
+
+  .skills-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .skill-row {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  .skill-name {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    width: 160px;
+    flex-shrink: 0;
+    color: var(--paper);
+  }
+
+  .skill-bar-wrap {
+    flex: 1;
+    height: 2px;
+    background: rgba(255,255,255,0.08);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .skill-bar {
+    height: 100%;
+    background: linear-gradient(to right, var(--gold), var(--gold-light));
+    transform-origin: left;
+    transform: scaleX(0);
+    transition: transform 1.2s cubic-bezier(0.77,0,0.175,1);
+  }
+
+  .skill-bar.animated { transform: scaleX(1); }
+
+  .skill-pct {
+    font-size: 0.65rem;
+    color: var(--gold);
+    width: 40px;
+    text-align: right;
+  }
+
+  /* CONTACT */
+  .contact-section {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    min-height: 60vh;
+  }
+
+  .contact-left {
+    padding: 6rem 4rem;
+    background: var(--charcoal);
+    color: var(--paper);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .contact-left .section-title { color: var(--paper); }
+
+  .contact-detail {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.5rem;
+    margin-bottom: 2.5rem;
+    padding-bottom: 2.5rem;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .contact-icon {
+    width: 40px; height: 40px;
+    border: 1px solid rgba(201,168,76,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--gold);
+    font-size: 1rem;
+    flex-shrink: 0;
+  }
+
+  .contact-label {
+    font-size: 0.55rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: rgba(244,240,232,0.3);
+    margin-bottom: 0.3rem;
+  }
+
+  .contact-value {
+    font-size: 0.8rem;
+    color: var(--paper);
+  }
+
+  .contact-value a {
+    color: var(--paper);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+
+  .contact-value a:hover { color: var(--gold); }
+
+  .contact-right {
+    padding: 6rem 4rem;
+    background: var(--paper);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .contact-right .section-title { color: var(--ink); }
+
+  .form-group {
+    margin-bottom: 1.5rem;
+  }
+
+  .form-group label {
+    display: block;
+    font-size: 0.6rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 0.7rem;
+  }
+
+  .form-group input,
+  .form-group textarea {
+    width: 100%;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid var(--line);
+    padding: 0.7rem 0;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.78rem;
+    color: var(--ink);
+    transition: border-color 0.3s;
+    resize: none;
+    outline: none;
+  }
+
+  .form-group input:focus,
+  .form-group textarea:focus {
+    border-bottom-color: var(--gold);
+  }
+
+  .form-group textarea { height: 100px; }
+
+  /* FOOTER */
+  footer {
+    padding: 2rem 4rem;
+    background: var(--ink);
+    color: rgba(244,240,232,0.3);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+
+  /* Animations */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .fade-up {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+
+  .fade-up.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .hero-left > * {
+    animation: fadeUp 0.8s ease both;
+  }
+  .hero-left > *:nth-child(1) { animation-delay: 0.1s; }
+  .hero-left > *:nth-child(2) { animation-delay: 0.2s; }
+  .hero-left > *:nth-child(3) { animation-delay: 0.3s; }
+  .hero-left > *:nth-child(4) { animation-delay: 0.4s; }
+  .hero-left > *:nth-child(5) { animation-delay: 0.5s; }
+
+  /* MARQUEE */
+  .marquee-wrap {
+    background: var(--gold);
+    padding: 1rem 0;
+    overflow: hidden;
+    display: flex;
+  }
+
+  .marquee-track {
+    display: flex;
+    gap: 0;
+    animation: marquee 18s linear infinite;
+    white-space: nowrap;
+  }
+
+  .marquee-item {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--ink);
+    padding: 0 2.5rem;
+    display: flex;
+    align-items: center;
+    gap: 2.5rem;
+  }
+
+  .marquee-item::after {
+    content: '✦';
+    color: rgba(10,10,10,0.3);
+  }
+
+  @keyframes marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  /* MOBILE */
+  @media (max-width: 900px) {
+    nav { padding: 1.5rem 2rem; }
+    .nav-links { display: none; }
+    .hero { grid-template-columns: 1fr; }
+    .hero-right { display: none; }
+    .hero-left { padding: 10rem 2rem 4rem; }
+    section { padding: 5rem 2rem; }
+    .expertise-grid { grid-template-columns: 1fr; }
+    .expertise-card { border-right: none; }
+    .timeline-section { grid-template-columns: 1fr; gap: 3rem; }
+    .skills-wrap { grid-template-columns: 1fr; gap: 2rem; }
+    .contact-section { grid-template-columns: 1fr; }
+    .contact-left, .contact-right { padding: 4rem 2rem; }
+    footer { flex-direction: column; gap: 1rem; text-align: center; }
+    body { cursor: auto; }
+    .cursor, .cursor-ring { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">AK</a>
+  <ul class="nav-links">
+    <li><a href="#expertise">Expertise</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-left">
+    <div class="hero-tag">CA Final Aspirant · 2025</div>
+    <h1 class="hero-name">Ayush<br><span>Kasar</span></h1>
+    <div class="hero-title">CA Final Aspirant</div>
+    <p class="hero-bio">Dynamic Chartered Accountant with three years of hands-on exposure in Financial Reporting, Taxation, and Auditing — seeking opportunities in India's leading organizations.</p>
+    <div class="hero-actions">
+      <a href="#contact" class="btn-primary"><span>Get In Touch</span></a>
+      <a href="mailto:ayushrajkasar@gmail.com" class="btn-ghost">↗ Email Me</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-right-inner">
+      <div class="geo-circle geo-1"></div>
+      <div class="geo-circle geo-2"></div>
+      <div class="geo-circle geo-3"></div>
+      <div class="initials-display">AK</div>
+      <div class="hero-stats">
+        <div class="stat-item">
+          <span class="stat-num">3+</span>
+          <span class="stat-label">Years Experience</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-num">80+</span>
+          <span class="stat-label">Clients Handled</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-num">150+</span>
+          <span class="stat-label">ITR Filed</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-indicator">
+    <div class="scroll-line"></div>
+    <span>Scroll</span>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <div class="marquee-item">Auditing & Assurance</div>
+    <div class="marquee-item">Financial Reporting</div>
+    <div class="marquee-item">Taxation</div>
+    <div class="marquee-item">GST Compliance</div>
+    <div class="marquee-item">Statutory Audit</div>
+    <div class="marquee-item">Tally ERP</div>
+    <div class="marquee-item">Financial Analysis</div>
+    <div class="marquee-item">CA Final Aspirant</div>
+    <!-- Duplicate for seamless loop -->
+    <div class="marquee-item">Auditing & Assurance</div>
+    <div class="marquee-item">Financial Reporting</div>
+    <div class="marquee-item">Taxation</div>
+    <div class="marquee-item">GST Compliance</div>
+    <div class="marquee-item">Statutory Audit</div>
+    <div class="marquee-item">Tally ERP</div>
+    <div class="marquee-item">Financial Analysis</div>
+    <div class="marquee-item">CA Final Aspirant</div>
+  </div>
+</div>
+
+<!-- EXPERTISE -->
+<section class="expertise" id="expertise">
+  <div class="section-tag fade-up">Work Experience</div>
+  <h2 class="section-title fade-up">Areas of<br>Expertise</h2>
+  <div class="expertise-grid">
+    <div class="expertise-card fade-up">
+      <div class="card-num">01</div>
+      <div class="card-title">Auditing & Assurance</div>
+      <p class="card-desc">Conducted comprehensive statutory and concurrent audits for nationalized banks and corporates across diverse industries.</p>
+      <ul class="card-items">
+        <li>Statutory Branch Audit — NPA & RRB</li>
+        <li>Concurrent Audit — Revenue Leakage</li>
+        <li>Unlisted Corporates (50Cr+ Turnover)</li>
+        <li>Stock Audit & LFAR Reports</li>
+      </ul>
+    </div>
+    <div class="expertise-card fade-up">
+      <div class="card-num">02</div>
+      <div class="card-title">Taxation</div>
+      <p class="card-desc">End-to-end tax compliance management for individuals, partnerships, and companies — TDS, GST, and beyond.</p>
+      <ul class="card-items">
+        <li>150+ Income Tax Returns Filed</li>
+        <li>TDS/TCS Returns & Advance Tax</li>
+        <li>GST9 · Return Filing · Refunds</li>
+        <li>Tax Audit Reports (50Cr+ Balance Sheet)</li>
+      </ul>
+    </div>
+    <div class="expertise-card fade-up">
+      <div class="card-num">03</div>
+      <div class="card-title">Finance & Analysis</div>
+      <p class="card-desc">Strategic financial analysis and projection reports to evaluate performance and support working capital decisions.</p>
+      <ul class="card-items">
+        <li>Financial Statement Analysis</li>
+        <li>Ratio Analysis & Business Performance</li>
+        <li>Profitability & Projection Reports</li>
+        <li>Working Capital Management</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION + EXPERIENCE -->
+<section id="education" style="background: var(--paper);">
+  <div class="timeline-section">
+    <div>
+      <div class="section-tag fade-up">Academic Journey</div>
+      <h2 class="section-title fade-up">Education</h2>
+      <div class="timeline">
+        <div class="timeline-item fade-up">
+          <div class="timeline-year">2025</div>
+          <div class="timeline-title">CA Final <span style="font-style:italic; font-size:0.85rem; color:var(--gold);">(Appearing)</span></div>
+          <div class="timeline-sub">Institute of Chartered Accountants of India</div>
+          <div class="timeline-badge">Exemption in 3 Subjects</div>
+        </div>
+        <div class="timeline-item fade-up">
+          <div class="timeline-year">2024</div>
+          <div class="timeline-title">CA Intermediate</div>
+          <div class="timeline-sub">Institute of Chartered Accountants of India</div>
+          <div class="timeline-badge">Exemption in 2 Subjects</div>
+        </div>
+        <div class="timeline-item fade-up">
+          <div class="timeline-year">2022</div>
+          <div class="timeline-title">Bachelor of Commerce</div>
+          <div class="timeline-sub">Devi Ahilya Vishwavidyalaya, Indore</div>
+        </div>
+        <div class="timeline-item fade-up">
+          <div class="timeline-year">2020</div>
+          <div class="timeline-title">CA Foundation</div>
+          <div class="timeline-sub">Institute of Chartered Accountants of India</div>
+          <div class="timeline-badge">Exemption in 1 Subject</div>
+        </div>
+        <div class="timeline-item fade-up">
+          <div class="timeline-year">2019</div>
+          <div class="timeline-title">HSC (12th)</div>
+          <div class="timeline-sub">South Valley International School · CBSE</div>
+        </div>
+        <div class="timeline-item fade-up">
+          <div class="timeline-year">2017</div>
+          <div class="timeline-title">SSC (10th)</div>
+          <div class="timeline-sub">South Valley International School · CBSE</div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="section-tag fade-up">Professional Path</div>
+      <h2 class="section-title fade-up">Experience</h2>
+      <div class="timeline">
+        <div class="timeline-item fade-up">
+          <div class="timeline-year">2022 – 2025</div>
+          <div class="timeline-title">Articled Assistant</div>
+          <div class="timeline-sub">C. Lasod & Associates</div>
+          <p style="font-size:0.7rem; color:var(--muted); line-height:1.8; margin-top:0.7rem;">A proficient firm with 31 years of experience, serving 80+ clients across diverse industries — covering Auditing & Assurance, Taxation, and Financial Advisory.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section class="skills-section" id="skills">
+  <div class="skills-wrap">
+    <div>
+      <div class="section-tag fade-up">Proficiencies</div>
+      <h2 class="section-title fade-up">Technical<br>Skills</h2>
+      <p class="skills-intro fade-up">Hands-on command of leading accounting tools and platforms, sharpened through three years of active articleship practice.</p>
+    </div>
+    <div class="skills-list">
+      <div class="skill-row fade-up">
+        <span class="skill-name">Tally ERP</span>
+        <div class="skill-bar-wrap"><div class="skill-bar" data-width="0.92"></div></div>
+        <span class="skill-pct">92%</span>
+      </div>
+      <div class="skill-row fade-up">
+        <span class="skill-name">MS Excel</span>
+        <div class="skill-bar-wrap"><div class="skill-bar" data-width="0.88"></div></div>
+        <span class="skill-pct">88%</span>
+      </div>
+      <div class="skill-row fade-up">
+        <span class="skill-name">Finacle / Bancs</span>
+        <div class="skill-bar-wrap"><div class="skill-bar" data-width="0.80"></div></div>
+        <span class="skill-pct">80%</span>
+      </div>
+      <div class="skill-row fade-up">
+        <span class="skill-name">Busy Software</span>
+        <div class="skill-bar-wrap"><div class="skill-bar" data-width="0.82"></div></div>
+        <span class="skill-pct">82%</span>
+      </div>
+      <div class="skill-row fade-up">
+        <span class="skill-name">GST Portal</span>
+        <div class="skill-bar-wrap"><div class="skill-bar" data-width="0.90"></div></div>
+        <span class="skill-pct">90%</span>
+      </div>
+      <div class="skill-row fade-up">
+        <span class="skill-name">Income Tax Portal</span>
+        <div class="skill-bar-wrap"><div class="skill-bar" data-width="0.88"></div></div>
+        <span class="skill-pct">88%</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<div class="contact-section" id="contact">
+  <div class="contact-left">
+    <div class="section-tag fade-up">Let's Connect</div>
+    <h2 class="section-title fade-up">Get In<br>Touch</h2>
+    <div class="contact-detail fade-up">
+      <div class="contact-icon">☎</div>
+      <div>
+        <div class="contact-label">Phone</div>
+        <div class="contact-value"><a href="tel:+917224936953">+91 72249 36953</a></div>
+      </div>
+    </div>
+    <div class="contact-detail fade-up">
+      <div class="contact-icon">✉</div>
+      <div>
+        <div class="contact-label">Email</div>
+        <div class="contact-value"><a href="mailto:ayushrajkasar@gmail.com">ayushrajkasar@gmail.com</a></div>
+      </div>
+    </div>
+    <div class="contact-detail fade-up">
+      <div class="contact-icon">in</div>
+      <div>
+        <div class="contact-label">LinkedIn</div>
+        <div class="contact-value"><a href="https://linkedin.com/in/ayush-kasar-1328a8244" target="_blank">ayush-kasar-1328a8244</a></div>
+      </div>
+    </div>
+    <div class="contact-detail fade-up" style="border-bottom:none;">
+      <div class="contact-icon">⊙</div>
+      <div>
+        <div class="contact-label">Location</div>
+        <div class="contact-value">Pithampur Sec 3, Dist. Dhar, MP</div>
+      </div>
+    </div>
+  </div>
+  <div class="contact-right">
+    <div class="section-tag fade-up" style="color:var(--gold);">Send a Message</div>
+    <h2 class="section-title fade-up" style="font-size:2rem;">Open to<br>Opportunities</h2>
+    <div class="form-group fade-up">
+      <label>Your Name</label>
+      <input type="text" placeholder="name">
+    </div>
+    <div class="form-group fade-up">
+      <label>Email Address</label>
+      <input type="email" placeholder="yourscompany@company.com">
+    </div>
+    <div class="form-group fade-up">
+      <label>Message</label>
+      <textarea placeholder="I'd like to discuss an opportunity..."></textarea>
+    </div>
+    <div class="fade-up">
+      <a href="mailto:ayushrajkasar@gmail.com" class="btn-primary"><span>Send Message ↗</span></a>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <span>© 2025 Ayush Kasar · CA Final Aspirant</span>
+  <span>Pithampur Sec 3, Dist. Dhar · MP</span>
+</footer>
+
+<script>
+  // Custom cursor
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursorRing');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    cursor.style.left = mx + 'px';
+    cursor.style.top = my + 'px';
+  });
+
+  function animateRing() {
+    rx += (mx - rx) * 0.12;
+    ry += (my - ry) * 0.12;
+    ring.style.left = rx + 'px';
+    ring.style.top = ry + 'px';
+    requestAnimationFrame(animateRing);
+  }
+  animateRing();
+
+  document.querySelectorAll('a, button').forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      ring.style.width = '60px';
+      ring.style.height = '60px';
+    });
+    el.addEventListener('mouseleave', () => {
+      ring.style.width = '36px';
+      ring.style.height = '36px';
+    });
+  });
+
+  // Intersection Observer for scroll animations
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+
+        // Animate skill bars
+        const bar = entry.target.querySelector('.skill-bar');
+        if (bar) {
+          setTimeout(() => bar.classList.add('animated'), 300);
+        }
+
+        // Animate individual skill rows
+        if (entry.target.classList.contains('skill-row')) {
+          const bar = entry.target.querySelector('.skill-bar');
+          if (bar) setTimeout(() => bar.classList.add('animated'), 200);
+        }
+      }
+    });
+  }, { threshold: 0.15 });
+
+  document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
+</script>
+
+</body>
+</html>
